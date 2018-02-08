@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-public class CartTest {
+public class AddProductTest {
 
     private Cart cart;
 
