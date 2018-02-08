@@ -13,7 +13,7 @@ public class AddProductTest {
     private Cart cart;
 
     @Test
-    public void should_contain_5_dove_soaps_and_total_equal_to_199_point_95_when_added_5_dove_soaps_to_shopping_cart(){
+    public void should_contain_5_dove_soaps_and_total_equal_to_199_point_95_when_unit_price_is_39_point_99(){
         cart = new Cart();
         cart.addProduct(Product.DOVE,5);
 
@@ -23,7 +23,7 @@ public class AddProductTest {
     }
 
     @Test
-    public void should_not_contain_5_dove_soaps_and_total_not_equal_to_199_point_95_when_added_6_dove_soaps_to_shopping_cart(){
+    public void should_not_contain_5_dove_soaps_and_total_not_equal_to_199_point_95_when_added_6_with_unit_price_of_39_point_99(){
         cart = new Cart();
         cart.addProduct(Product.DOVE,6);
 
