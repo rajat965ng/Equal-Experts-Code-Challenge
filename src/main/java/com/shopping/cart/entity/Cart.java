@@ -16,9 +16,14 @@ public class Cart {
 
     public Cart() {
         this.productList = new ArrayList<>();
-        this.addToCartHandler = new AddToCartHandler(productList);
+        IAddToCartHandler cartHandler = new AddToCartHandler();
+        setAddToCartHandler(cartHandler);
     }
 
+    public void setAddToCartHandler(IAddToCartHandler addToCartHandler) {
+        this.addToCartHandler = addToCartHandler;
+        this.addToCartHandler.setProductList(productList);
+    }
 
     public void addProduct(Product product, int qty){
         double price = addToCartHandler.addProduct(product,qty);

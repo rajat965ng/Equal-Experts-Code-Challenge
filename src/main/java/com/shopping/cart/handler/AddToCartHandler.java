@@ -10,8 +10,9 @@ public class AddToCartHandler implements IAddToCartHandler {
 
     private List<Product> productList;
 
-    public AddToCartHandler(List<Product> cart) {
-        this.productList = cart;
+    @Override
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override
