@@ -1,7 +1,9 @@
 package com.shopping.cart.entity;
 
 import com.shopping.cart.handler.AddToCartHandler;
+import com.shopping.cart.handler.GenericTaxHandler;
 import com.shopping.cart.handler.IAddToCartHandler;
+import com.shopping.cart.handler.ITaxHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,25 +15,47 @@ public class Cart {
     private double totalPrice;
 
     private IAddToCartHandler addToCartHandler;
+    private ITaxHandler taxHandler;
+    private DecimalFormat decimalFormat;
 
     public Cart() {
         this.productList = new ArrayList<>();
-        IAddToCartHandler cartHandler = new AddToCartHandler();
-        setAddToCartHandler(cartHandler);
+        decimalFormat = new DecimalFormat("#.##");
+
+        setAddToCartHandler(new AddToCartHandler());
+        setTaxHandler(new GenericTaxHandler());
+        setTax(0);
     }
 
     public void setAddToCartHandler(IAddToCartHandler addToCartHandler) {
-        this.addToCartHandler = addToCartHandler;
-        this.addToCartHandler.setProductList(productList);
+        if(addToCartHandler instanceof IAddToCartHandler) {
+            this.addToCartHandler = addToCartHandler;
+            this.addToCartHandler.setProductList(productList);
+        }
     }
+
+    public void setTaxHandler(ITaxHandler taxHandler){
+        if (taxHandler instanceof ITaxHandler){
+            this.taxHandler = taxHandler;
+        }
+    }
+
+    public void setTax(double taxRate) {
+            taxHandler.setTaxRate(taxRate);
+    }
+
+    public double getCalculatedTax(){
+        return getRoundOffValue(taxHandler.getTaxOnTotalPrice(getRoundOffValue(totalPrice)));
+    }
+
 
     public void addProduct(Product product, int qty){
         double price = addToCartHandler.addProduct(product,qty);
-        addToTotalPrice(price);
+        totalPrice+=price;
     }
 
     public long getQtyByProduct(Product product){
-       return productList.stream().filter(prod->prod==product).count();
+        return productList.stream().filter(prod->prod==product).count();
     }
 
     public int getCartSize(){
@@ -39,11 +63,11 @@ public class Cart {
     }
 
     public double getTotalPrice(){
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        return Double.parseDouble(decimalFormat.format(totalPrice));
+        return getRoundOffValue(taxHandler.getPriceAfterTax(totalPrice));
     }
 
-    private void addToTotalPrice(double totalPrice){
-        this.totalPrice+=totalPrice;
+    private double getRoundOffValue(double price){
+        return Double.parseDouble(decimalFormat.format(price));
     }
+
 }
