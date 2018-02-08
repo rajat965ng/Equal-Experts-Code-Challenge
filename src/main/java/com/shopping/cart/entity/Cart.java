@@ -1,37 +1,44 @@
 package com.shopping.cart.entity;
 
+import com.shopping.cart.handler.AddToCartHandler;
+import com.shopping.cart.handler.IAddToCartHandler;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Cart {
 
-    private List<Product> products;
+    private List<Product> productList;
+    private double totalPrice;
+
+    private IAddToCartHandler addToCartHandler;
 
     public Cart() {
-        this.products = new ArrayList<>();
+        this.productList = new ArrayList<>();
+        this.addToCartHandler = new AddToCartHandler(productList);
     }
 
-    public void addProduct(Product product,int qty){
-        IntStream.range(0,qty).forEach(e->{
-            products.add(product);
-        });
-        System.out.println("Adding "+qty+" unit :"+product);
+
+    public void addProduct(Product product, int qty){
+        double price = addToCartHandler.addProduct(product,qty);
+        addToTotalPrice(price);
     }
 
     public long getQtyByProduct(Product product){
-       return products.stream().filter(prod->prod==product).count();
+       return productList.stream().filter(prod->prod==product).count();
     }
 
     public int getCartSize(){
-        return products.size();
+        return productList.size();
     }
 
     public double getTotalPrice(){
-      return products.stream().map(Product::getValue)
-              .collect(Collectors.summarizingDouble(val->val))
-              .getSum();
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        return Double.parseDouble(decimalFormat.format(totalPrice));
     }
 
+    private void addToTotalPrice(double totalPrice){
+        this.totalPrice+=totalPrice;
+    }
 }
