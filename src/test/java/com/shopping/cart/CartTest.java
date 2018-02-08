@@ -18,7 +18,7 @@ public class CartTest {
         cart.addProduct(Product.DOVE,5);
 
         assertEquals(5,cart.getQtyByProduct(Product.DOVE));
-        assertEquals(199.95,cart.getTotalPrice(),0.01);
+        assertEquals(199.95,cart.getTotalPrice(),0.00);
         assertEquals(5,cart.getCartSize());
     }
 
@@ -28,7 +28,7 @@ public class CartTest {
         cart.addProduct(Product.DOVE,6);
 
         assertNotEquals(5,cart.getQtyByProduct(Product.DOVE));
-        assertNotEquals(199.95,cart.getTotalPrice(),0.01);
+        assertNotEquals(199.95,cart.getTotalPrice(),0.00);
         assertEquals(6,cart.getCartSize());
     }
 

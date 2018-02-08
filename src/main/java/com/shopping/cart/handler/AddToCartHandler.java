@@ -21,7 +21,7 @@ public class AddToCartHandler implements IAddToCartHandler {
             productList.add(product);
             return product.getValue();
         }).sum();
-        System.out.println("Adding "+qty+" unit :"+product);
+        System.out.println("Adding "+qty+" unit of "+product);
         return price;
     }
 }
