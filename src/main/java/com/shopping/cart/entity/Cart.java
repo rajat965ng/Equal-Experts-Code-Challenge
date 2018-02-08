@@ -16,12 +16,9 @@ public class Cart {
 
     private IAddToCartHandler addToCartHandler;
     private ITaxHandler taxHandler;
-    private DecimalFormat decimalFormat;
 
     public Cart() {
         this.productList = new ArrayList<>();
-        decimalFormat = new DecimalFormat("#.##");
-
         setAddToCartHandler(new AddToCartHandler());
         setTaxHandler(new GenericTaxHandler());
         setTax(0);
@@ -45,7 +42,7 @@ public class Cart {
     }
 
     public double getCalculatedTax(){
-        return getRoundOffValue(taxHandler.getTaxOnTotalPrice(getRoundOffValue(totalPrice)));
+        return taxHandler.getTaxOnTotalPrice(totalPrice);
     }
 
 
@@ -63,11 +60,9 @@ public class Cart {
     }
 
     public double getTotalPrice(){
-        return getRoundOffValue(taxHandler.getPriceAfterTax(totalPrice));
+        return taxHandler.getPriceAfterTax(totalPrice);
     }
 
-    private double getRoundOffValue(double price){
-        return Double.parseDouble(decimalFormat.format(price));
-    }
+
 
 }

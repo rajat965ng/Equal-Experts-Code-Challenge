@@ -26,7 +26,7 @@ public class CalculateTaxTest {
     }
 
     @Test
-    public void should_calculate_total_tax_35_when_add_2_axe_and_2_dove(){
+    public void should_calculate_total_tax_35_when_add_2_axe_and_2_dove_at_12_point_5_tax(){
         cart = new Cart();
         cart.addProduct(Product.DOVE,2);
         cart.addProduct(Product.AXE,2);
@@ -34,7 +34,14 @@ public class CalculateTaxTest {
         assertEquals(35.00,cart.getCalculatedTax(),0.00);
     }
 
-
+    @Test
+    public void should_calculate_total_price_314_point_96_when_add_2_axe_and_2_dove_at_12_point_5_tax(){
+        cart = new Cart();
+        cart.addProduct(Product.AXE,2);
+        cart.addProduct(Product.DOVE,2);
+        cart.setTax(12.5);
+        assertEquals(314.96,cart.getTotalPrice(),0.00);
+    }
 
 
 }
