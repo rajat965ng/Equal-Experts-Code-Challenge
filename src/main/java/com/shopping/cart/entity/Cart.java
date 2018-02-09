@@ -27,7 +27,7 @@ public class Cart {
 
     public void addProduct(Product product, int qty){
         double price = addToCartHandler.addProduct(product,qty);
-        addToTotalPrice(price);
+        totalPrice+=price;
     }
 
     public long getQtyByProduct(Product product){
@@ -43,7 +43,4 @@ public class Cart {
         return Double.parseDouble(decimalFormat.format(totalPrice));
     }
 
-    private void addToTotalPrice(double totalPrice){
-        this.totalPrice+=totalPrice;
-    }
 }
