@@ -5,7 +5,6 @@ import com.shopping.cart.handler.GenericTaxHandler;
 import com.shopping.cart.handler.IAddToCartHandler;
 import com.shopping.cart.handler.ITaxHandler;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,22 +19,9 @@ public class Cart {
     public Cart() {
         this.productList = new ArrayList<>();
         setAddToCartHandler(new AddToCartHandler());
-        setTaxHandler(new GenericTaxHandler());
-        setTax(0);
+        setTaxHandler(new GenericTaxHandler(),0);
     }
 
-    public void setAddToCartHandler(IAddToCartHandler addToCartHandler) {
-        if(addToCartHandler instanceof IAddToCartHandler) {
-            this.addToCartHandler = addToCartHandler;
-            this.addToCartHandler.setProductList(productList);
-        }
-    }
-
-    public void setTaxHandler(ITaxHandler taxHandler){
-        if (taxHandler instanceof ITaxHandler){
-            this.taxHandler = taxHandler;
-        }
-    }
 
     public void setTax(double taxRate) {
             taxHandler.setTaxRate(taxRate);
@@ -63,6 +49,20 @@ public class Cart {
         return taxHandler.getPriceAfterTax(totalPrice);
     }
 
+
+    public void setAddToCartHandler(IAddToCartHandler addToCartHandler) {
+        if(addToCartHandler instanceof IAddToCartHandler) {
+            this.addToCartHandler = addToCartHandler;
+            this.addToCartHandler.setProductList(productList);
+        }
+    }
+
+    public void setTaxHandler(ITaxHandler taxHandler,double taxRate){
+        if (taxHandler instanceof ITaxHandler){
+            this.taxHandler = taxHandler;
+            setTax(taxRate);
+        }
+    }
 
 
 }
