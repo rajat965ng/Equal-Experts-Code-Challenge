@@ -13,6 +13,25 @@ public class AddProductTest {
     private Cart cart;
 
     @Test
+    public void should_contain_0_products_if_no_product_added(){
+        cart = new Cart();
+        assertEquals(0,cart.getCartSize());
+    }
+
+
+    @Test
+    public void should_calculate_0_total_price_if_no_product_added(){
+        cart = new Cart();
+        assertEquals(0,cart.getTotalPrice(),0.00);
+    }
+
+    @Test
+    public void should_calculate_qty_0_if_search_for_dove_soap_when_cart_is_empty(){
+        cart = new Cart();
+        assertEquals(0,cart.getQtyByProduct(Product.DOVE));
+    }
+
+    @Test
     public void should_contain_5_dove_soaps_when_add_5_dove_soap(){
         cart = new Cart();
         cart.addProduct(Product.DOVE,5);
