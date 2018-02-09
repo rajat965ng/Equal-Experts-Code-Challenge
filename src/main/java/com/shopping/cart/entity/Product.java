@@ -2,7 +2,7 @@ package com.shopping.cart.entity;
 
 public enum Product {
 
-    DOVE("Dove",39.99);
+    DOVE("Dove Soap",39.99);
 
     private String name;
     private double value;
