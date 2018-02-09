@@ -69,4 +69,11 @@ public class CalculateTaxTest {
         cart.setTax(12.5);
         assertNotEquals(314.96,cart.getTotalPrice(),0.00);
     }
+
+
+    @Test
+    public void should_calculate_0_tax_when_no_product_is_added(){
+        cart = new Cart();
+        assertEquals(0,cart.getCalculatedTax(),0.00);
+    }
 }
